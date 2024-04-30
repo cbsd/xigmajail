@@ -4,15 +4,14 @@
 
 **Installation**
 
-1)
+1) Install module, XigmaNAS:
 
+*Tools > Command > Command* (paste line):
 ```
 fetch --no-verify-peer https://raw.githubusercontent.com/cbsd/xigmajail/main/utils/cbsdjail_install.sh  && chmod +x cbsdjail_install.sh && ./cbsdjail_install.sh && echo "=> Done!"
 ```
 
-2)
-
-Make sure the 'Disable Extension Menu' checkbox is unset, XigmaNAS UI:
+2) Make sure the 'Disable Extension Menu' checkbox is unset, XigmaNAS UI:
 
 System > Advanced Setup -> Disable Extension Menu [ ] Disable scanning of folders for existing extension menus.
 
