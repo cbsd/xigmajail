@@ -15,6 +15,17 @@ fetch --no-verify-peer https://raw.githubusercontent.com/cbsd/xigmajail/main/uti
 
 System > Advanced Setup -> Disable Extension Menu [ ] Disable scanning of folders for existing extension menus.
 
+3) Initialize the working directory of the cbsd to any existing pool:
+
+Extensions > CBSD jail
+
+
+![image](https://github.com/cbsd/xigmajail/assets/926409/7bc1c494-486e-48a6-aea3-4174caa47ec6)
+
+
+**Errata:**
+
+Creating the first container may take a long time as the module downloads the base.txz ( FreeBSD base tarball ) archive from FreeBSD.org.
 
 **Credits:**
 
