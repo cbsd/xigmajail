@@ -2,6 +2,9 @@
 
  This is the XigmaNAS CBSD Extension for quickly create and manage jails.
 
+![image](https://github.com/cbsd/xigmajail/assets/926409/b24ae262-f281-4bf1-94ef-0fa4497ead6a)
+
+
 **Installation**
 
 1) Install module, XigmaNAS:
