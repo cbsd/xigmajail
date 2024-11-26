@@ -229,4 +229,6 @@ if [ ${ret} -ne 0 ]; then
 	sysrc -qf ~cbsd/etc/jail-default-default.conf default_ci_gw4="${GW4}" ci_gw4="${GW4}" > /dev/null 2>&1
 fi
 
+/usr/local/etc/rc.d/cbsdd status || /usr/local/etc/rc.d/cbsdd start
+
 exit 0
