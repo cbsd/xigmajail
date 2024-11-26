@@ -18,6 +18,7 @@ ver=${tmpver%%-*}
 majorver=${ver%%.*}
 unset tmpver
 
+# for development version
 if [ ! -x "${CBSD_CMD}" ]; then
 	echo "No such cbsd executable, installing via pkg.."
 
@@ -25,15 +26,16 @@ if [ ! -x "${CBSD_CMD}" ]; then
 	#env SIGNATURE_TYPE=none ASSUME_ALWAYS_YES=yes IGNORE_OSVERSION=yes pkg install -y tmux cbsd ttyd
 
 	# for devel
-	env SIGNATURE_TYPE=none ASSUME_ALWAYS_YES=yes IGNORE_OSVERSION=yes pkg install -y sudo libssh2 rsync jq sqlite3 tmux ttyd
-	rootfs_url="https://www.bsdstore.ru/downloads/xigma/${majorver}/cbsd-14.0.9.a.pkg"
-	fetch -o cbsd.pkg ${rootfs_url}
-	pkg install -y ./cbsd.pkg
-	rm -f ./cbsd.pkg
+	env SIGNATURE_TYPE=none ASSUME_ALWAYS_YES=yes IGNORE_OSVERSION=yes pkg install -y sudo libssh2 rsync jq sqlite3 tmux ttyd cbsd
+	# for development version
+	#rootfs_url="https://convectix.com/DL/xigma/${majorver}/cbsd-14.0.9.a.pkg"
+	#fetch -o cbsd.pkg ${rootfs_url}
+	#pkg install -y ./cbsd.pkg
+	#rm -f ./cbsd.pkg
+	pkg clean -ya
 fi
 
 CBSD_CMD=$( which cbsd 2>/dev/null )
-
 [ ! -x "${CBSD_CMD}" ] && err 1 "No such cbsd executable"
 
 TTYD_CMD=$( which ttyd 2>/dev/null )
@@ -116,7 +118,7 @@ if [ ! -x ${EXTENSION_DIR}/bin/sbin/pfctl ]; then
 	echo "Fetch system binary dependencies for FreeBSD ${majorver} [${EXTENSION_DIR}]..."
 
 	cd ${EXTENSION_DIR}
-	rootfs_url="https://www.bsdstore.ru/downloads/xigma/${majorver}/xigma-rootfs.tgz"
+	rootfs_url="https://convectix.com/DL/xigma/${majorver}/xigma-rootfs.tgz"
 	fetch ${rootfs_url}
 	[ ! -s ${EXTENSION_DIR}/xigma-rootfs.tgz ] && err 1 "unable to fetch ${rootfs_url}: no such ${EXTENSION_DIR}/xigma-rootfs.tgz"
 	tar xfz xigma-rootfs.tgz && rm -f xigma-rootfs.tgz
