@@ -452,7 +452,7 @@ $document->render();
 				$jname="";
 			endif;
 			$a_action = $l_interfaces;
-//			$a_action = [ 'cbsd0' => 'cbsd0' ];
+//			$a_action = [ 'cbsdbr0' => 'cbsdbr0' ];
 			$b_action = $l_release;
 //			$c_action = $l_pubkey;
 			$d_action = $l_cpu;

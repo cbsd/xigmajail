@@ -209,7 +209,7 @@ $document->render();
 		<tbody>
 <?php
 			html_filechooser("cbsd_workdir", gettext("CBSD workdir"),  $pconfig['cbsd_workdir'], sprintf(gettext("The %s MUST be set to a directory below: %s. Make sure you have enough space for jails."), gettext("CBSD workdir"), "<b>'{$pconfig['cbsd_workdir']}'</b>"), true, 60);
-//			html_combobox2('cbsd_iface',gettext('Jail interface name'),$pconfig['cbsd_iface'] ?? '',[ 'cbsd0' => 'cbsd0' ],'(current version supports only one network interface)',true,false,'type_change()');
+//			html_combobox2('cbsd_iface',gettext('Jail interface name'),$pconfig['cbsd_iface'] ?? '',[ 'cbsdbr0' => 'cbsdbr0' ],'(current version supports only one network interface)',true,false,'type_change()');
 			html_inputbox2('cbsd_gw4',gettext('Init IP on cbsd_iface (GW4 for VNET Jails)'),$pconfig['cbsd_gw4'],'',true,15);
 			html_inputbox2('cbsd_net',gettext('Network for Jails, e.g: 10.0.0.0/24 or 10.0.0.1-50'),$pconfig['cbsd_net'],'',true,30);
 			html_checkbox2('cbsd_nat',gettext('Enable NAT via CBSD/pf ?'),!empty($pconfig['cbsd_nat']) ? true : false,'','(learn: <a href="cbsd_manager_info.php">Arhcitecture Info</a>)',false);

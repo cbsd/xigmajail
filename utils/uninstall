@@ -43,15 +43,12 @@ if [ -h /usr/local/www/ext/cbsd-bhyve ]; then
 fi
 
 if [ ${uninstall_cbsd} -eq 1 ]; then
-	/sbin/ifconfig cbsd0 > /dev/null 2>&1
+	/sbin/ifconfig cbsdbr0 > /dev/null 2>&1
 	ret=$?
 	if [ ${ret} -eq 0 ]; then
-		echo "/sbin/ifconfig cbsd0 destroy" | tee -a /var/log/cbsd-init.log
-		/sbin/ifconfig cbsd0 destroy >/dev/null 2>&1
+		echo "/sbin/ifconfig cbsdbr0 destroy" | tee -a /var/log/cbsd-init.log
+		/sbin/ifconfig cbsdbr0 destroy >/dev/null 2>&1
 	fi
-
-	sysrc cloned_interfaces-="bridge0"
-	sysrc ifconfig_bridge0=""
 
 	id cbsd > /dev/null 2>&1
 	ret=$?

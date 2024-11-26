@@ -97,9 +97,9 @@ Thus, one of the main requirements is the availability (for XigmaNAS instance) o
 <a href="/ext/cbsd-jail/images/xigmanas_gen2.png"><img src="/ext/cbsd-jail/images/xigmanas_gen2.png" alt="" width="600" height="400"></a>
 <br>
 <br>
-<p>CBSD extension creates a bridge (if_bridge) named 'cbsd0' and assign IPv4 (ci_gw4 params) address on it. 
+<p>CBSD extension creates a bridge (if_bridge) named 'cbsdbr0' and assign IPv4 (ci_gw4 params) address on it. 
 Virtual machines receive network configuration from CBSD via `cloud-init`.
-In this case, the address on the 'cbsd0' interface will act as the default gateway for virtual machines.
+In this case, the address on the 'cbsdbr0' interface will act as the default gateway for virtual machines.
 Of course, the network must be the same for the virtual machine addresses and the gateway. E.g.:
 </p>
 <table border=1>

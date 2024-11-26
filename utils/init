@@ -60,17 +60,6 @@ fi
 
 sysrc -q cbsdd_enable="YES" > /dev/null 2>&1
 
-/sbin/ifconfig cbsd0 > /dev/null 2>&1
-ret=$?
-if [ ${ret} -ne 0 ]; then
-	echo "/sbin/ifconfig bridge0 create description CBSD" | tee -a /var/log/cbsd-init.log
-	/sbin/ifconfig bridge0 create description CBSD
-	echo "/sbin/ifconfig bridge0 name cbsd0" | tee -a /var/log/cbsd-init.log
-	/sbin/ifconfig bridge0 name cbsd0
-	echo "/sbin/ifconfig cbsd0 up" | tee -a /var/log/cbsd-init.log
-	/sbin/ifconfig cbsd0 up
-fi
-
 new_workdir=0
 
 if [ -r "${CONF_PATH}/workdir.new" ]; then
@@ -100,7 +89,7 @@ pw usermod cbsd -d ${WORKDIR}
 
 if [ -r "${CONF_PATH}/gw4.new" ]; then
 	GW4=$( grep . ${CONF_PATH}/gw4.new | awk '{printf $1}' )
-	/sbin/ifconfig cbsd0 inet ${GW4}/24
+	/sbin/ifconfig cbsdbr0 inet ${GW4}/24
 	/bin/mv ${CONF_PATH}/gw4.new ${CONF_PATH}/gw4
 elif [ -r "${CONF_PATH}/gw4" ]; then
 	GW4=$( grep . ${CONF_PATH}/gw4 | awk '{printf $1}' )
@@ -148,16 +137,6 @@ else
 	cbsd_nat="0"
 fi
 
-grep -q bridge0 /etc/rc.conf > /dev/null
-ret=$?
-if [ ${ret} -ne 0 ]; then
-	sysrc cloned_interfaces+="bridge0"
-fi
-
-sysrc ifconfig_bridge0="inet ${GW4}/24 up name cbsd0"
-
-/sbin/ifconfig cbsd0 inet ${GW4}/24 up
-
 if [ -r "${CONF_PATH}/net.new" ]; then
 	NET=$( grep . ${CONF_PATH}/net.new | awk '{printf $1}' )
 	/bin/mv ${CONF_PATH}/net.new ${CONF_PATH}/net
@@ -204,9 +183,11 @@ sysrc -qf /tmp/initenv.conf nodeippool="${NET}" \
 	nodeip="${natip}" \
 	natip="${natip}" \
 	ipfw_enable="0" \
+	default_vs="1" \
 	post_cbsd_cmd_path="${EXTENSION_ROOT}/bin/sbin:${EXTENSION_ROOT}/bin/usr/bin:${EXTENSION_ROOT}/bin/usr/sbin" \
 	workdir="${WORKDIR}" | tee -a /var/log/cbsd-init.log
 
+sysrc -qf ~cbsd/etc/global.conf configure_default_cbsd_vs_cidr4="${NET}"
 /usr/local/cbsd/sudoexec/initenv /tmp/initenv.conf 2>&1 | tee -a /var/log/cbsd-init.log
 
 cbsd_version=$( /usr/local/bin/cbsd version 2>&1 )
