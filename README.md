@@ -1,6 +1,6 @@
 **Description:**
 
- This is the XigmaNAS CBSD Extension to quickly create and manage jails.
+ This is the XigmaNAS CBSD Extension to quickly Create and Manage Virtual Machine Jails and Container Jails.
 
 ![image](https://github.com/cbsd/xigmajail/assets/926409/b24ae262-f281-4bf1-94ef-0fa4497ead6a)
 
