@@ -30,8 +30,6 @@ Extensions > CBSD jail
 
 Creating the first container may take a long time as the module downloads the base.txz ( FreeBSD base tarball ) archive from FreeBSD.org.
 
-**Credits:**
+**Discussons:**
 
- Oleg Ginzburg (olevole)
-
-Additional information on CBSD: <a href="https://github.com/cbsd/cbsd">https://github.com/cbsd/cbsd</a>
+Suggestions, conversations and ideas: https://github.com/cbsd/cbsd/discussions/categories/xigmanas
