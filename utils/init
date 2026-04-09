@@ -184,7 +184,7 @@ sysrc -qf /tmp/initenv.conf nodeippool="${NET}" \
 	natip="${natip}" \
 	ipfw_enable="0" \
 	default_vs="1" \
-	post_cbsd_cmd_path="${EXTENSION_ROOT}/bin/sbin:${EXTENSION_ROOT}/bin/usr/bin:${EXTENSION_ROOT}/bin/usr/sbin" \
+	post_cbsd_cmd_path="${EXTENSION_ROOT}/bin" \
 	workdir="${WORKDIR}" | tee -a /var/log/cbsd-init.log
 
 sysrc -qf ~cbsd/etc/global.conf configure_default_cbsd_vs_cidr4="${NET}"
