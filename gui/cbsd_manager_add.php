@@ -17,11 +17,11 @@ if(!(isset($pconfig['ipaddress']))):
 	$pconfig['ipaddress'] = '';
 endif;
 
-if(!(isset($pconfig['fqdn']))):
+if(!(isset($pconfig['host_hostname']))):
 	if(file_exists("{$rootfolder}/conf/fqdn")):
-		$pconfig['fqdn'] = file_get_contents("{$rootfolder}/conf/fqdn");
+		$pconfig['host_hostname'] = file_get_contents("{$rootfolder}/conf/fqdn");
 	else:
-		$pconfig['fqdn'] = 'my.domain';
+		$pconfig['host_hostname'] = 'my.domain';
 	endif;
 endif;
 
@@ -254,6 +254,7 @@ if($_POST):
 	endif;
 	if(isset($_POST['Create']) && $_POST['Create']):
 		$jname = $pconfig['jailname'];
+		$host_hostname = $pconfig['host_hostname'];
 		$ipaddr = $pconfig['ipaddress'];
 		$release = $pconfig['release'];
 		$cpu = $pconfig['cpu'];
@@ -295,7 +296,6 @@ if($_POST):
 		else:
 			$astart="0";
 		endif;
-
 
 		if (isset($_POST['nowstart'])):
 			$cmd .= " runasap=1";
@@ -372,7 +372,7 @@ if($_POST):
 			$devfs_ruleset=4;
 		endif;
 
-		$cmd = "/usr/bin/env NOINTER=1 /usr/local/bin/cbsd jcreate jname={$jname} vmemoryuse=${ram} cpu=${cpu} astart={$astart} ip4_addr={$ipaddr} ver=native inter=0 pkg_bootstrap=0 baserw={$baserw} vnet={$vnet} allow_mount={$allow_mount} allow_nullfs={$allow_nullfs} allow_fdescfs={$allow_fdescfs} allow_procfs={$allow_procfs} allow_raw_sockets={$allow_raw_sockets} allow_tmpfs={$allow_tmpfs} allow_zfs={$allow_zfs} allow_mlock={$allow_mlock} allow_nfsd={$allow_nfsd} mount_fdescfs={$mount_fdescfs} mount_procfs={$mount_procfs} devfs_ruleset={$devfs_ruleset}";
+		$cmd = "/usr/bin/env NOINTER=1 /usr/local/bin/cbsd jcreate jname={$jname} vmemoryuse=${ram} cpu=${cpu} astart={$astart} ip4_addr={$ipaddr} ver=native inter=0 pkg_bootstrap=0 baserw={$baserw} vnet={$vnet} allow_mount={$allow_mount} allow_nullfs={$allow_nullfs} allow_fdescfs={$allow_fdescfs} allow_procfs={$allow_procfs} allow_raw_sockets={$allow_raw_sockets} allow_tmpfs={$allow_tmpfs} allow_zfs={$allow_zfs} allow_mlock={$allow_mlock} allow_nfsd={$allow_nfsd} mount_fdescfs={$mount_fdescfs} mount_procfs={$mount_procfs} devfs_ruleset={$devfs_ruleset} host_hostname={$host_hostname}";
 
 		if (isset($_POST['nowstart'])):
 			$cmd .= " runasap=1";
@@ -466,7 +466,7 @@ $document->render();
 //				$pubkey_comment = '';
 //			endif;
 			html_inputbox2('jailname',gettext('Jail name'),$jname[0],'',true,20);
-			html_inputbox2('host_hostname',gettext('Jail FQDN'),$jname[0].".".$pconfig['fqdn'],'',true,40);
+			html_inputbox2('host_hostname',gettext('Jail FQDN'),$jname[0].".".$pconfig['host_hostname'],'',true,40);
 
 			$cpu_default_option = '1';
 			html_combobox2('cpu',gettext("vCPU (Host Core Num: (0 - unlimited))"),array_key_exists($pconfig['cpu'] ?? '',$d_action) ? $pconfig['cpu'] : $cpu_default_options ,$d_action,'',true,false,'type_change()');
